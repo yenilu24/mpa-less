@@ -7,7 +7,7 @@ const __dirname = import.meta.dirname;
 function obtenerHtmlFiles() {
     return Object.fromEntries(
         glob.sync("./**/*.html", {
-            ignore: ["./dist/**", "./node_modules/**"],
+            ignore: ["./dist/**", "./docs/**", "./node_modules/**"],
         }).map((file) => [
             file.slice(0, file.length - path.extname(file).length),
             resolve(__dirname, file),
@@ -17,7 +17,10 @@ function obtenerHtmlFiles() {
 
 export default defineConfig({
     appType: "mpa",
+    base: "/mpa-less/",
     build: {
+        outDir: "docs",
+        emptyOutDir: true,
         rolldownOptions: {
             input: obtenerHtmlFiles(),
         },
